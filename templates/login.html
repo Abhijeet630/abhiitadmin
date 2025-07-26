@@ -50,25 +50,27 @@
 <style>
     /* Custom styles for the login page */
 
-    /* IMPORTANT: This sets the body background for the login page only */
+    /* IMPORTANT: This overrides the body background from base.html for the login page only */
     body {
-        background-color: #000000; /* Solid Black Background */
-        background-size: cover; /* Ensures the background covers the entire area */
-        background-attachment: fixed; /* Keeps the background fixed when scrolling */
+        background: linear-gradient(135deg, #a8dadc, #457b9d); /* A professional blue-green gradient */
+        background-size: cover;
+        background-attachment: fixed;
+        /* Ensure font-family is consistent if needed, but base.html already sets it */
+        /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */ 
     }
 
     .custom-login-card {
         max-width: 450px; /* Limit the width of the login card */
         width: 100%;
         border-radius: 10px;
-        background-color: #ffffff; /* Card background remains white for contrast */
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+        background-color: #ffffff;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for depth */
         border: none; /* Remove default border */
         overflow: hidden; /* Ensures shadows and borders are contained */
     }
 
     .custom-login-card .card-title {
-        color: #2c3e50; /* Darker title color - visible on white card */
+        color: #2c3e50; /* Darker title color */
         font-weight: 600;
     }
 

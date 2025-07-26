@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Welcome to My Office App{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="hero-section">
+            <h1 class="display-3 animate__animated animate__fadeInDown">Welcome to Our Asset Management System</h1>
+            <p class="lead animate__animated animate__fadeInUp">Efficiently manage all your IT assets and system information in one centralized place.</p>
+            
+            <div class="d-flex justify-content-center flex-wrap">
+                <a href="{{ url_for('system_info_list') }}" class="btn btn-custom-primary animate__animated animate__zoomIn my-2 mx-2">
+                    <i class="fas fa-desktop me-2"></i> Manage Computers
+                </a>
+                 <a href="{{url_for('router_info_list') }}" class="btn btn-custom-primary animate__animated animate__zoomIn my-2 mx-2">
+                    <i class="fas fa-wifi me-2"></i> Manage Divices
+                </a>
+                
+                <a href="http://172.16.16.191:5002" class="btn btn-custom-secondary animate__animated animate__zoomIn my-2 mx-2" target="_blank">
+                    <i class="fas fa-globe me-2"></i> Employee Directory
+                </a>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Detailed Records</h3>
+                        <p>Keep track of every hardware and software detail for each system.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <i class="fas fa-search"></i>
+                        <h3>Easy Search & Filter</h3>
+                        <p>Quickly find the information you need with intuitive search capabilities.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Secure & Reliable</h3>
+                        <p>Your asset data is stored securely and is always accessible when you need it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+{% endblock %}

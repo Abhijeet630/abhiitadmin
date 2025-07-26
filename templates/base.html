@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Office App{% endblock %}</title>
+
+    {# Bootstrap CSS from CDN #}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    {# Font Awesome CSS from CDN - Using a more recent version for broader icon support #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {# Animate.css for subtle entrance animations - Optional, remove if not needed #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+    <style>
+        /* Custom CSS for a professional look */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            padding-top: 70px; /* Offset for fixed navbar */
+        }
+        .navbar {
+            background-color: #2c3e50 !important; /* Dark blue/gray for navbar */
+            border-bottom: 3px solid #1abc9c; /* Subtle accent line */
+        }
+        .navbar-brand, .nav-link {
+            color: #ecf0f1 !important; /* Light text for navbar */
+            font-weight: 500;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #1abc9c !important; /* Teal accent on hover */
+        }
+        .hero-section {
+            background-color: #34495e; /* Slightly lighter dark blue/gray */
+            color: #ecf0f1;
+            padding: 80px 0;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero-section p.lead {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+        }
+        /* Custom Button Styles */
+        .btn-custom-primary {
+            background-color: #1abc9c; /* Turquoise */
+            border-color: #1abc9c;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px; /* Pill-shaped buttons */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-custom-primary:hover {
+            background-color: #16a085; /* Darker turquoise on hover */
+            border-color: #16a085;
+            color: white;
+        }
+        .btn-custom-secondary {
+            background-color: #e67e22; /* Carrot orange */
+            border-color: #e67e22;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px; /* Pill-shaped buttons */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-custom-secondary:hover {
+            background-color: #d35400; /* Darker orange on hover */
+            border-color: #d35400;
+            color: white;
+        }
+        .btn-custom-info { /* New style for router button */
+            background-color: #3498db; /* Peter River blue */
+            border-color: #3498db;
+            color: white;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-custom-info:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+            border-color: #2980b9;
+            color: white;
+        }
+        .card-section {
+            margin-bottom: 40px;
+        }
+        .feature-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            height: 100%; /* Ensure cards are same height */
+        }
+        .feature-card i {
+            font-size: 3rem;
+            color: #1abc9c; /* Icon color */
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        .feature-card p {
+            color: #7f8c8d;
+        }
+        .footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+            border-top: 3px solid #1abc9c; /* Subtle accent line */
+        }
+        /* Table specific styles for nowrap and ellipsis */
+        .table-responsive {
+            max-height: 70vh; /* Adjust height as needed */
+            overflow-y: auto;
+        }
+        th {
+            position: sticky;
+            top: 0;
+            background: #f8f9fa; /* Ensure header background is visible when sticky */
+            z-index: 10;
+            white-space: nowrap; /* Ensure header text stays on one line */
+        }
+        td {
+            white-space: nowrap; /* Ensure data text stays on one line */
+            overflow: hidden; /* Hide overflow content */
+            text-overflow: ellipsis; /* Show ellipsis for hidden content */
+            max-width: 150px; /* Adjust as needed for better readability of table data */
+        }
+
+        /* Styles for fixed flash message container */
+        #flash-messages-container {
+            position: fixed;
+            top: 70px; /* Adjust based on your navbar height */
+            left: 0;
+            right: 0;
+            z-index: 1050; /* Higher than navbar, just below modals */
+            padding: 10px 15px; /* Padding inside the container */
+            pointer-events: none; /* Allows clicks to pass through to elements below */
+            display: flex; /* Use flexbox to center messages */
+            justify-content: center; /* Center messages horizontally */
+        }
+        #flash-messages-container .alert {
+            max-width: 600px; /* Limit width of alert messages */
+            width: 100%; /* Take full width up to max-width */
+            pointer-events: auto; /* Re-enable pointer events for the alert itself */
+            opacity: 1;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Smooth fade and slide up */
+            transform: translateY(0);
+        }
+        #flash-messages-container .alert.fade-out {
+            opacity: 0;
+            transform: translateY(-20px); /* Slide up while fading */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid"> {# Use container-fluid for full width navbar #}
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-building me-2"></i>My Office App
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                {# Main navigation links - pushed to the left #}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('system_info_list') }}">
+                            <i class="fas fa-desktop me-1"></i> System Information
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('router_info_list') }}">
+                            <i class="fas fa-wifi me-1"></i> Device Information
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://172.16.16.191:5002" target="_blank">
+                            <i class="fas fa-external-link-alt me-1"></i> Employee Directory
+                        </a>
+                    </li>
+                    {# Admin Panel link - only visible if logged in and has 'admin' role #}
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_users') }}"><i class="fas fa-user-cog me-1"></i> Admin Panel</a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                {# User status/action links - pushed to the far right #}
+                <ul class="navbar-nav ms-auto">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="nav-link text-white">Welcome, {{ current_user.username }}!</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {# Fixed container for auto-dismissing flash messages #}
+    <div id="flash-messages-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} fade show" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="container-fluid mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {{ datetime.now().year }} My Office App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    {# Bootstrap JS Bundle from CDN #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {# JavaScript to auto-dismiss flash messages #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var alerts = document.querySelectorAll('#flash-messages-container .alert');
+            alerts.forEach(function(alert) {
+                setTimeout(function() {
+                    alert.classList.add('fade-out');
+                    alert.addEventListener('transitionend', function() {
+                        alert.remove();
+                    }, { once: true });
+                }, 3000); // Messages disappear after 3 seconds
+            });
+        });
+    </script>
+</body>
+</html>

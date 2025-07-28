@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
+{% block footer %}{% endblock %}
 
 {% block content %}
 <div class="main-login-page">
@@ -16,8 +17,8 @@
             </svg>
         </div>
         <div class="login-form-container">
-            <h2 class="title">Login</h2>
-            <p class="subtitle">Sign in to your account</p>
+            <h2 class="title">लॉगिन</h2>
+            <p class="subtitle">अपने अकाउंट में साइन इन करें</p>
             
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -33,22 +34,25 @@
 
             <form method="POST">
                 <div class="input-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <input type="text" id="username" name="username" placeholder="यूजरनेम" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="password" id="password" name="password" placeholder="पासवर्ड" required>
                 </div>
-                <button type="submit" class="login-btn">Login</button>
+                <button type="submit" class="login-btn">लॉगिन</button>
             </form>
             <div class="link-area">
-                <a href="#" class="forgot-password">Forgot Password?</a>
+                <a href="#" class="forgot-password">पासवर्ड भूल गए?</a>
             </div>
         </div>
+    </div>
+    <div class="footer-text mt-4">
+        &copy; 2025 All rights reserved.
     </div>
 </div>
 
 <style>
-    /* Main container and background */
+    /* New: Stylish and animated background for a better look */
     body {
         background-color: #0b0c10;
         color: #e0e6ed;
@@ -59,15 +63,45 @@
         justify-content: center;
         position: relative;
         overflow: hidden;
+        padding-top: 0 !important; /* Overrides base.html padding */
+    }
+
+    /* Subtle background grid animation */
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 30px 30px;
+        z-index: 0;
+        animation: pan-background 60s linear infinite;
+        opacity: 0.5;
+    }
+
+    @keyframes pan-background {
+        from {
+            background-position: 0 0;
+        }
+        to {
+            background-position: 300% 300%;
+        }
     }
 
     .main-login-page {
         width: 100%;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
         padding: 2rem;
+        position: relative;
+        z-index: 1; /* Ensures content is on top of the animated background */
     }
 
     /* Glassmorphism card styling */
@@ -82,6 +116,11 @@
         max-width: 450px;
         width: 100%;
         text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .login-card:hover {
+        transform: translateY(-5px);
     }
 
     /* Logo and text */
@@ -116,26 +155,24 @@
         width: 100%;
         padding: 15px 20px;
         background-color: #1a1c22;
-        border: 1px solid #333;
+        border: 1px solid transparent;
         border-radius: 10px;
         color: #fff;
         font-size: 1rem;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
     }
 
-    /* Specific glowing effect for each input field */
     #username {
         box-shadow: 0 0 0 1px #4a6ee6;
-        border-color: #4a6ee6;
     }
     
     #password {
         box-shadow: 0 0 0 1px #ff8c42;
-        border-color: #ff8c42;
     }
-
+    
     .input-group input:focus {
         outline: none;
+        box-shadow: 0 0 10px rgba(74, 110, 230, 0.8), 0 0 0 1px #4a6ee6;
     }
 
     /* Login button styling */
@@ -175,34 +212,41 @@
         color: #fff;
     }
 
-    /* Flash message styling */
-    .alert {
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 0.95rem;
-        border: 1px solid transparent;
-        margin-bottom: 1.5rem;
-        text-align: left;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    .alert-warning {
-        background-color: #382e00;
-        border-color: #ffc107;
-        color: #ffeb3b;
+    /* Footer text */
+    .footer-text {
+        color: #a0a0a0;
+        font-size: 0.9rem;
+        margin-top: 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 1;
     }
 
-    .alert-danger {
-        background-color: #4a0000;
-        border-color: #dc3545;
-        color: #ff6b6b;
-    }
+    /* ----------------------------- */
+    /* New: Responsive Design */
+    /* ----------------------------- */
 
-    .alert-success {
-        background-color: #0c3d1f;
-        border-color: #28a745;
-        color: #66bb6a;
+    @media (max-width: 576px) {
+        .login-card {
+            padding: 25px; /* Smaller padding for mobile */
+            max-width: 90%; /* Take up more width on small screens */
+        }
+        .title {
+            font-size: 1.8rem;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+        }
+        .input-group input {
+            padding: 12px 15px;
+        }
+        .login-btn {
+            font-size: 1rem;
+            padding: 12px;
+        }
+        .footer-text {
+            font-size: 0.8rem;
+        }
     }
-
 </style>
 {% endblock %}

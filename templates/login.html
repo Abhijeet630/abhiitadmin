@@ -5,6 +5,17 @@
         <div class="logo-area">
             <img src="https://www.tatanexarc.com/per/g04/pub/1678/iONAppsHub/instance/Documents/1678/BusinessProfile/1644295099595/K.jpeg" alt="Login Logo" class="logo-image">
         </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="messages mt-4">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} animate__animated animate__shakeX" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
 
         <div class="login-form-container">
             <h2 class="title">Login</h2>

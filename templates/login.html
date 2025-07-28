@@ -2,53 +2,57 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="it-login-page">
-    <div class="login-container animate__animated animate__fadeInUp">
-        <div class="login-header">
-            <i class="fas fa-server fa-4x mb-4 animate__animated animate__pulse animate__infinite"></i>
-            <h2>IT Portal Login</h2>
-            <p>Access your professional dashboard</p>
+<div class="main-login-page">
+    <div class="login-card animate__animated animate__zoomIn">
+        <div class="logo-area">
+            <svg class="logo-icon" width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0L80 20V80L50 100L20 80V20L50 0Z" fill="url(#paint0_linear_1_2)"/>
+                <defs>
+                    <linearGradient id="paint0_linear_1_2" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#FF5A91"/>
+                        <stop offset="1" stop-color="#00A2FF"/>
+                    </linearGradient>
+                </defs>
+            </svg>
         </div>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="messages mt-4">
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }} animate__animated animate__shakeX" role="alert">
-                {{ message }}
+        <div class="login-form-container">
+            <h2 class="title">लॉगिन</h2>
+            <p class="subtitle">अपने अकाउंट में साइन इन करें</p>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="messages mt-4">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }} animate__animated animate__shakeX" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="यूजरनेम" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="पासवर्ड" required>
+                </div>
+                <button type="submit" class="login-btn">लॉगिन</button>
+            </form>
+            <div class="link-area">
+                <a href="#" class="forgot-password">पासवर्ड भूल गए?</a>
+            </div>
         </div>
-        {% endif %}
-        {% endwith %}
-
-        <form method="POST" class="mt-4">
-            <div class="form-group mb-4">
-                <div class="input-with-icon">
-                    <i class="fas fa-user"></i>
-                    <input type="text" id="username" name="username" placeholder="Username" required>
-                </div>
-            </div>
-            <div class="form-group mb-4">
-                <div class="input-with-icon">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                </div>
-            </div>
-            <button type="submit" class="login-button animate__animated animate__headShake">Log In</button>
-        </form>
-    </div>
-    <div class="footer-text mt-4">
-        &copy; 2025 All rights reserved.
     </div>
 </div>
 
 <style>
-    /* Main Background for IT Theme */
+    /* Main container and background */
     body {
-        background-color: #0a0e14;
+        background-color: #0b0c10;
         color: #e0e6ed;
-        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', sans-serif;
         min-height: 100vh;
         display: flex;
         align-items: center;
@@ -57,132 +61,121 @@
         overflow: hidden;
     }
 
-    /* Subtle Animated Background Grid/Particles */
-    body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
+    .main-login-page {
         width: 100%;
-        height: 100%;
-        background: 
-            radial-gradient(circle at top left, rgba(0, 255, 255, 0.08) 0%, transparent 30%),
-            radial-gradient(circle at bottom right, rgba(128, 0, 128, 0.08) 0%, transparent 30%),
-            linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8)),
-            repeating-linear-gradient(0deg, #1a1a1a, #1a1a1a 1px, transparent 1px, transparent 40px),
-            repeating-linear-gradient(90deg, #1a1a1a, #1a1a1a 1px, transparent 1px, transparent 40px);
-        background-size: cover;
-        animation: backgroundShift 20s linear infinite alternate;
-        filter: brightness(0.8);
-    }
-
-    @keyframes backgroundShift {
-        0% { background-position: 0% 0%; }
-        100% { background-position: 100% 100%; }
-    }
-
-    .it-login-page {
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
         min-height: 100vh;
-        z-index: 10;
-        position: relative;
+        padding: 2rem;
     }
 
-    .login-container {
-        background-color: rgba(20, 24, 30, 0.95);
-        border: 1px solid #3a475a;
-        border-radius: 16px;
-        padding: 50px;
+    /* Glassmorphism card styling */
+    .login-card {
+        background: rgba(25, 27, 33, 0.6);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        padding: 40px;
         max-width: 450px;
         width: 100%;
-        box-shadow: 0 15px 40px rgba(0, 255, 255, 0.15), 0 5px 15px rgba(0, 255, 255, 0.1);
         text-align: center;
-        backdrop-filter: blur(5px);
     }
 
-    .login-header h2 {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #00e0ff;
-        margin-bottom: 8px;
-        text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
-    }
-
-    .login-header p {
-        font-size: 1rem;
-        color: #a0aec0;
+    /* Logo and text */
+    .logo-area {
         margin-bottom: 25px;
     }
 
-    .login-header i {
-        color: #00e0ff;
-        margin-bottom: 20px;
+    .logo-icon {
+        filter: drop-shadow(0 0 10px rgba(255, 90, 145, 0.6));
+    }
+
+    .title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: #a0a0a0;
+        margin-bottom: 30px;
     }
 
     /* Input fields styling */
-    .input-with-icon {
+    .input-group {
         position: relative;
         margin-bottom: 25px;
     }
 
-    .input-with-icon i {
-        position: absolute;
-        left: 18px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #718096;
-        font-size: 1.1rem;
-        transition: color 0.2s ease;
-    }
-
-    .input-with-icon input {
+    .input-group input {
         width: 100%;
-        padding: 15px 15px 15px 55px;
-        background-color: #0d1117;
-        border: 1px solid #4a5568;
+        padding: 15px 20px;
+        background-color: #1a1c22;
+        border: 1px solid #333;
         border-radius: 10px;
-        color: #e2e8f0;
-        font-size: 1.05rem;
+        color: #fff;
+        font-size: 1rem;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .input-with-icon input::placeholder {
-        color: #718096;
-        opacity: 0.8;
+    /* Specific glowing effect for each input field */
+    #username {
+        box-shadow: 0 0 0 1px #4a6ee6;
+        border-color: #4a6ee6;
+    }
+    
+    #password {
+        box-shadow: 0 0 0 1px #ff8c42;
+        border-color: #ff8c42;
     }
 
-    .input-with-icon input:focus {
-        border-color: #00e0ff;
+    .input-group input:focus {
         outline: none;
-        box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.3);
     }
 
-    /* Login Button Styling */
-    .login-button {
+    /* Login button styling */
+    .login-btn {
         width: 100%;
         padding: 15px;
         border: none;
         border-radius: 10px;
-        background: linear-gradient(45deg, #007bff, #00e0ff);
-        color: #ffffff;
+        background: linear-gradient(90deg, #ff5a91, #00a2ff);
+        color: #fff;
         font-size: 1.2rem;
         font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
-        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        box-shadow: 0 5px 20px rgba(0, 162, 255, 0.4);
     }
 
-    .login-button:hover {
-        background: linear-gradient(45deg, #00e0ff, #007bff);
+    .login-btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
+        box-shadow: 0 8px 25px rgba(0, 162, 255, 0.6);
+        background: linear-gradient(90deg, #00a2ff, #ff5a91);
     }
 
-    /* Flash Message Styling */
+    /* Additional links */
+    .link-area {
+        margin-top: 20px;
+    }
+
+    .forgot-password {
+        color: #a0a0a0;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-password:hover {
+        color: #fff;
+    }
+
+    /* Flash message styling */
     .alert {
         padding: 12px 20px;
         border-radius: 8px;
@@ -211,26 +204,5 @@
         color: #66bb6a;
     }
 
-    /* Footer Text Styling */
-    .footer-text {
-        color: #718096;
-        font-size: 0.9rem;
-        margin-top: 2rem;
-        text-align: center;
-        z-index: 10;
-        position: relative;
-    }
-
-    /* Animate.css overrides */
-    .animate__animated.animate__fadeInUp {
-        --animate-duration: 0.8s;
-    }
-    .animate__animated.animate__pulse {
-        --animate-duration: 2s;
-    }
-    .animate__animated.animate__headShake {
-        --animate-duration: 1.2s;
-        --animate-delay: 0.5s;
-    }
 </style>
 {% endblock %}

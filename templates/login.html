@@ -16,8 +16,8 @@
             </svg>
         </div>
         <div class="login-form-container">
-            <h2 class="title">लॉगिन</h2>
-            <p class="subtitle">अपने अकाउंट में साइन इन करें</p>
+            <h2 class="title">Login</h2>
+            <p class="subtitle">Sign in to your account</p>
             
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -33,15 +33,15 @@
 
             <form method="POST">
                 <div class="input-group">
-                    <input type="text" id="username" name="username" placeholder="यूजरनेम" required>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="पासवर्ड" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="login-btn">लॉगिन</button>
+                <button type="submit" class="login-btn">Login</button>
             </form>
             <div class="link-area">
-                <a href="#" class="forgot-password">पासवर्ड भूल गए?</a>
+                <a href="#" class="forgot-password">Forgot Password?</a>
             </div>
         </div>
     </div>

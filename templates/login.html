@@ -17,8 +17,8 @@
             </svg>
         </div>
         <div class="login-form-container">
-            <h2 class="title">लॉगिन</h2>
-            <p class="subtitle">अपने अकाउंट में साइन इन करें</p>
+            <h2 class="title">Login</h2>
+            <p class="subtitle">Sign in to your account</p>
             
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -34,15 +34,15 @@
 
             <form method="POST">
                 <div class="input-group">
-                    <input type="text" id="username" name="username" placeholder="यूजरनेम" required>
+                    <input type="text" id="username" name="username" placeholder="Username" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="पासवर्ड" required>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="login-btn">लॉगिन</button>
+                <button type="submit" class="login-btn">Login</button>
             </form>
             <div class="link-area">
-                <a href="#" class="forgot-password">पासवर्ड भूल गए?</a>
+                <a href="#" class="forgot-password">Forgot Password?</a>
             </div>
         </div>
     </div>
@@ -112,8 +112,8 @@
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        padding: 40px;
-        max-width: 450px;
+        padding: 30px; /* Reduced padding for a more compact look */
+        max-width: 400px; /* Reduced max-width to make it smaller */
         width: 100%;
         text-align: center;
         transition: transform 0.3s ease;
@@ -133,27 +133,27 @@
     }
 
     .title {
-        font-size: 2.2rem;
+        font-size: 2rem; /* Slightly reduced font size */
         font-weight: 700;
         color: #fff;
         margin-bottom: 5px;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem; /* Slightly reduced font size */
         color: #a0a0a0;
-        margin-bottom: 30px;
+        margin-bottom: 25px; /* Reduced margin */
     }
 
     /* Input fields styling */
     .input-group {
         position: relative;
-        margin-bottom: 25px;
+        margin-bottom: 20px; /* Reduced margin */
     }
 
     .input-group input {
         width: 100%;
-        padding: 15px 20px;
+        padding: 12px 20px; /* Reduced padding */
         background-color: #1a1c22;
         border: 1px solid transparent;
         border-radius: 10px;
@@ -178,12 +178,12 @@
     /* Login button styling */
     .login-btn {
         width: 100%;
-        padding: 15px;
+        padding: 12px; /* Reduced padding */
         border: none;
         border-radius: 10px;
         background: linear-gradient(90deg, #ff5a91, #00a2ff);
         color: #fff;
-        font-size: 1.2rem;
+        font-size: 1.1rem; /* Slightly reduced font size */
         font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -215,37 +215,37 @@
     /* Footer text */
     .footer-text {
         color: #a0a0a0;
-        font-size: 0.9rem;
-        margin-top: 2rem;
+        font-size: 0.8rem; /* Reduced font size */
+        margin-top: 1.5rem; /* Reduced margin */
         text-align: center;
         position: relative;
         z-index: 1;
     }
 
     /* ----------------------------- */
-    /* New: Responsive Design */
+    /* Responsive Design */
     /* ----------------------------- */
 
     @media (max-width: 576px) {
         .login-card {
-            padding: 25px; /* Smaller padding for mobile */
-            max-width: 90%; /* Take up more width on small screens */
+            padding: 20px; /* Smaller padding for mobile */
+            max-width: 95%; /* Take up more width on small screens */
         }
         .title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
         }
         .subtitle {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
         .input-group input {
-            padding: 12px 15px;
+            padding: 10px 15px;
         }
         .login-btn {
-            font-size: 1rem;
-            padding: 12px;
+            font-size: 0.9rem;
+            padding: 10px;
         }
         .footer-text {
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
     }
 </style>

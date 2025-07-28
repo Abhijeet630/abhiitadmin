@@ -2,13 +2,14 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 140px);"> {# Adjust min-height based on navbar and footer #}
-    <div class="card shadow-lg p-4 custom-login-card animate__animated animate__fadeInDown">
-        <div class="card-body">
-            <h2 class="card-title text-center mb-4">
-                <i class="fas fa-sign-in-alt me-2"></i> User Login
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="login-card custom-shadow animate__animated animate__fadeInUp">
+        <div class="card-body p-5">
+            <h2 class="card-title text-center mb-4 text-primary">
+                <i class="fas fa-sign-in-alt me-2"></i> Welcome Back
             </h2>
-            
+            <p class="text-center text-muted mb-4">Please sign in to continue.</p>
+
             {# Flash messages display #}
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -23,75 +24,88 @@
             {% endwith %}
 
             <form method="POST">
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                    <label for="username">Username</label>
                 </div>
-                <div class="mb-4">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <label for="password">Password</label>
                 </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-custom-primary btn-lg">Login</button>
-                    {# Optionally, add a registration link if you have one #}
-                    {# <a href="{{ url_for('register') }}" class="btn btn-outline-secondary mt-3">Register</a> #}
+                
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
                 </div>
+                
+                <p class="text-center text-muted">
+                    Don't have an account? <a href="#" class="text-decoration-none">Sign up here</a>
+                </p>
             </form>
         </div>
     </div>
 </div>
 
 <style>
-    /* Custom styles for the login page */
+    /*
+     * The primary goal is to create a clean, modern, and professional look.
+     * We'll use a subtle color palette and leverage Bootstrap's utility classes.
+     */
 
-    /* IMPORTANT: This overrides the body background from base.html for the login page only */
+    /* --- Page Background --- */
     body {
-        background: linear-gradient(135deg, #a8dadc, #457b9d); /* A professional blue-green gradient */
-        background-size: cover;
-        background-attachment: fixed;
-        /* Ensure font-family is consistent if needed, but base.html already sets it */
-        /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */ 
+        background-color: #f4f7f9; /* A very light, clean gray */
+        font-family: 'Inter', 'Segoe UI', sans-serif; /* A modern, clean font family */
+        /* To ensure the gradient from the previous code doesn't interfere, we set a solid color.
+           If you prefer a gradient, use a very subtle one. */
     }
 
-    .custom-login-card {
-        max-width: 450px; /* Limit the width of the login card */
+    /* --- Login Card --- */
+    .login-card {
+        max-width: 400px; /* Slightly narrower for a more focused look */
         width: 100%;
-        border-radius: 10px;
+        border-radius: 12px; /* Slightly more rounded corners */
         background-color: #ffffff;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for depth */
-        border: none; /* Remove default border */
-        overflow: hidden; /* Ensures shadows and borders are contained */
+        border: 1px solid #e0e6ed; /* A subtle border for definition */
     }
 
-    .custom-login-card .card-title {
-        color: #2c3e50; /* Darker title color */
+    .custom-shadow {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* A softer, more spread-out shadow */
+    }
+
+    /* --- Form Elements --- */
+    .form-floating .form-control {
+        border-radius: 8px; /* Consistent rounded corners */
+    }
+
+    .form-floating label {
+        color: #aeb9c7; /* Lighter color for placeholder text */
+    }
+
+    .form-floating .form-control:focus {
+        border-color: #0d6efd; /* Use Bootstrap's primary color for focus state */
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    /* --- Buttons --- */
+    .btn-primary {
+        background-color: #0d6efd; /* Standard Bootstrap primary color */
+        border-color: #0d6efd;
+        border-radius: 8px;
         font-weight: 600;
+        transition: transform 0.2s ease-in-out;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* --- Custom Colors --- */
+    .text-primary {
+        color: #1a2333 !important; /* A very dark gray for better readability */
     }
 
-    .input-group-text {
-        background-color: #f0f2f5; /* Light background for icons */
-        border-right: none;
-        color: #7f8c8d; /* Icon color */
-    }
-
-    .form-control {
-        border-left: none;
-        border-radius: 0 5px 5px 0; /* Match rounded corners with input-group-text */
-    }
-
-    .form-control:focus {
-        box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25); /* Teal focus glow */
-        border-color: #1abc9c;
-    }
-
-    /* Animation from Animate.css for a subtle entrance */
-    .animate__animated.animate__fadeInDown {
+    /* --- Animations --- */
+    .animate__animated.animate__fadeInUp {
         --animate-duration: 0.8s;
     }
 </style>

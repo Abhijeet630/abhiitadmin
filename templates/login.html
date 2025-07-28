@@ -3,9 +3,9 @@
 
 {% block content %}
 <div class="it-login-page">
-    <div class="login-container animate__animated animate__fadeIn">
+    <div class="login-container animate__animated animate__fadeInUp">
         <div class="login-header">
-            <i class="fas fa-server fa-3x mb-3"></i>
+            <i class="fas fa-server fa-4x mb-4 animate__animated animate__pulse animate__infinite"></i>
             <h2>IT Portal Login</h2>
             <p>Access your professional dashboard</p>
         </div>
@@ -35,27 +35,26 @@
                     <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
             </div>
-            <button type="submit" class="login-button">Log In</button>
+            <button type="submit" class="login-button animate__animated animate__headShake">Log In</button>
         </form>
     </div>
 </div>
 
-
 <style>
     /* Main Background for IT Theme */
     body {
-        background-color: #0d1117;
-        color: #c9d1d9;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #0a0e14; /* Even darker base */
+        color: #e0e6ed; /* Lighter text for contrast */
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
-        overflow: hidden;
+        overflow: hidden; /* Prevent scroll from background effects */
     }
 
-    /* Subtle Animated Background Effect */
+    /* Subtle Animated Background Grid/Particles */
     body::before {
         content: '';
         position: absolute;
@@ -63,15 +62,20 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(circle at top left, rgba(46, 170, 220, 0.1) 0%, transparent 40%),
-                    radial-gradient(circle at bottom right, rgba(220, 46, 170, 0.1) 0%, transparent 40%);
-        filter: blur(80px);
-        animation: subtlePulse 15s ease infinite alternate;
+        background: 
+            radial-gradient(circle at top left, rgba(0, 255, 255, 0.08) 0%, transparent 30%),
+            radial-gradient(circle at bottom right, rgba(128, 0, 128, 0.08) 0%, transparent 30%),
+            linear-gradient(rgba(20, 20, 20, 0.8), rgba(20, 20, 20, 0.8)), /* Dark overlay for readability */
+            repeating-linear-gradient(0deg, #1a1a1a, #1a1a1a 1px, transparent 1px, transparent 40px),
+            repeating-linear-gradient(90deg, #1a1a1a, #1a1a1a 1px, transparent 1px, transparent 40px);
+        background-size: cover;
+        animation: backgroundShift 20s linear infinite alternate; /* Slower, subtle shift */
+        filter: brightness(0.8); /* Slightly dim the background */
     }
 
-    @keyframes subtlePulse {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.1); }
+    @keyframes backgroundShift {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
     }
 
     .it-login-page {
@@ -79,116 +83,140 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 100vh;
+        min-height: 100vh; /* Use min-height to ensure it covers the viewport */
     }
 
     .login-container {
-        background-color: #161b22;
-        border: 1px solid #30363d;
-        border-radius: 12px;
-        padding: 40px;
-        max-width: 420px;
+        background-color: rgba(20, 24, 30, 0.95); /* Slightly transparent dark card */
+        border: 1px solid #3a475a; /* More distinct border */
+        border-radius: 16px; /* More rounded */
+        padding: 50px; /* More padding for spacious feel */
+        max-width: 450px; /* Slightly wider card */
         width: 100%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 15px 40px rgba(0, 255, 255, 0.15), 0 5px 15px rgba(0, 255, 255, 0.1); /* Cyan glow shadow */
         text-align: center;
         position: relative;
-        z-index: 10;
+        z-index: 10; /* Ensure card is on top */
+        backdrop-filter: blur(5px); /* Subtle glassmorphism */
     }
 
     .login-header h2 {
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: #58a6ff;
-        margin-bottom: 5px;
+        font-size: 2.2rem; /* Larger title */
+        font-weight: 700;
+        color: #00e0ff; /* Bright cyan for IT theme */
+        margin-bottom: 8px;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.6); /* Glowing text effect */
     }
 
     .login-header p {
-        font-size: 0.9rem;
-        color: #8b949e;
+        font-size: 1rem;
+        color: #a0aec0; /* Lighter gray for subtitle */
+        margin-bottom: 25px; /* More space below subtitle */
     }
 
     .login-header i {
-        color: #58a6ff;
+        color: #00e0ff; /* Bright cyan icon */
+        margin-bottom: 20px; /* Space below icon */
     }
 
-    .form-group {
-        text-align: left;
-    }
-
+    /* Input fields styling */
     .input-with-icon {
         position: relative;
+        margin-bottom: 25px; /* More space between input groups */
     }
 
     .input-with-icon i {
         position: absolute;
-        left: 15px;
+        left: 18px; /* Icon position */
         top: 50%;
         transform: translateY(-50%);
-        color: #484f58;
+        color: #718096; /* Icon color */
+        font-size: 1.1rem;
+        transition: color 0.2s ease;
     }
 
     .input-with-icon input {
         width: 100%;
-        padding: 12px 12px 12px 45px;
-        background-color: #0d1117;
-        border: 1px solid #30363d;
-        border-radius: 8px;
-        color: #c9d1d9;
-        font-size: 1rem;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        padding: 15px 15px 15px 55px; /* Adjust padding for icon */
+        background-color: #0d1117; /* Very dark input background */
+        border: 1px solid #4a5568; /* Input border */
+        border-radius: 10px; /* Rounded input fields */
+        color: #e2e8f0; /* Input text color */
+        font-size: 1.05rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .input-with-icon input::placeholder {
+        color: #718096; /* Placeholder color */
+        opacity: 0.8;
     }
 
     .input-with-icon input:focus {
-        border-color: #58a6ff;
+        border-color: #00e0ff; /* Cyan border on focus */
         outline: none;
-        box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+        box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.3); /* Cyan glow on focus */
     }
 
+    /* Login Button Styling */
     .login-button {
         width: 100%;
-        padding: 12px;
+        padding: 15px; /* Larger button */
         border: none;
-        border-radius: 8px;
-        background-color: #238636;
+        border-radius: 10px;
+        background: linear-gradient(45deg, #007bff, #00e0ff); /* Blue to cyan gradient */
         color: #ffffff;
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1.2rem; /* Larger font */
+        font-weight: 700;
         cursor: pointer;
-        transition: background-color 0.2s ease;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3); /* Initial shadow */
     }
 
     .login-button:hover {
-        background-color: #2ea043;
+        background: linear-gradient(45deg, #00e0ff, #007bff); /* Reverse gradient on hover */
+        transform: translateY(-3px); /* Lift button on hover */
+        box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5); /* Enhanced shadow on hover */
     }
 
-    .messages {
-        text-align: center;
-    }
-
+    /* Flash Message Styling */
     .alert {
-        padding: 10px;
+        padding: 12px 20px;
         border-radius: 8px;
-        font-size: 0.9rem;
+        font-size: 0.95rem;
         border: 1px solid transparent;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem; /* More space below alerts */
+        text-align: left; /* Align text left within alert */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
     
     .alert-warning {
-        background-color: #3f1e00;
-        border-color: #633c00;
-        color: #ffb740;
+        background-color: #382e00;
+        border-color: #ffc107;
+        color: #ffeb3b;
     }
 
     .alert-danger {
-        background-color: #490202;
-        border-color: #a40e26;
-        color: #f85149;
+        background-color: #4a0000;
+        border-color: #dc3545;
+        color: #ff6b6b;
     }
 
     .alert-success {
-        background-color: #0b341f;
-        border-color: #238636;
-        color: #56d364;
+        background-color: #0c3d1f;
+        border-color: #28a745;
+        color: #66bb6a;
+    }
+
+    /* Animate.css overrides */
+    .animate__animated.animate__fadeInUp {
+        --animate-duration: 0.8s;
+    }
+    .animate__animated.animate__pulse {
+        --animate-duration: 2s;
+    }
+    .animate__animated.animate__headShake {
+        --animate-duration: 1.2s; /* Slower shake for button */
+        --animate-delay: 0.5s; /* Delay button animation */
     }
 </style>
 {% endblock %}

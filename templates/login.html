@@ -41,9 +41,9 @@
 </div>
 
 <style>
-    /* New: Professional, dark gradient background */
+    /* IT Admin Style: Dark, subtle grid background */
     body {
-        background: radial-gradient(circle at 10% 20%, #1a1c22 0%, #0b0c10 100%);
+        background-color: #0b0c10;
         color: #e0e6ed;
         font-family: 'Inter', sans-serif;
         min-height: 100vh;
@@ -53,6 +53,22 @@
         position: relative;
         overflow: hidden;
         padding-top: 0 !important;
+    }
+    
+    /* Subtle grid pattern to give a techy feel */
+    body::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+        z-index: 0;
+        opacity: 0.8;
     }
 
     .main-login-page {
@@ -67,23 +83,23 @@
         z-index: 1;
     }
 
-    /* Transparent Glassmorphism card styling */
+    /* Minimalist Glassmorphism card */
     .login-card {
-        background: rgba(25, 27, 33, 0.4); /* More transparent */
+        background: rgba(25, 27, 33, 0.6);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Darker, more professional shadow */
+        border-radius: 10px; /* Sharper corners for a more modern look */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle, intentional shadow */
         padding: 30px;
         max-width: 400px;
         width: 100%;
         text-align: center;
-        transition: transform 0.3s ease;
+        transition: transform 0.2s ease;
     }
 
     .login-card:hover {
-        transform: translateY(-5px);
+        transform: scale(1.01);
     }
 
     /* Logo area styling */
@@ -122,17 +138,17 @@
         width: 100%;
         padding: 12px 20px;
         background-color: #1a1c22;
-        border: 1px solid transparent; /* Transparent border */
-        border-radius: 10px;
+        border: 1px solid #333; /* Dark, subtle border */
+        border-radius: 8px;
         color: #fff;
         font-size: 1rem;
-        transition: all 0.3s ease;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    
+
     .input-group input:focus {
         outline: none;
-        border: 1px solid #00a2ff; /* Solid blue border on focus */
-        box-shadow: 0 0 10px rgba(0, 162, 255, 0.8);
+        border-color: #007bff; /* Sharp blue border on focus */
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.6);
     }
 
     /* Login button styling */
@@ -140,20 +156,20 @@
         width: 100%;
         padding: 12px;
         border: none;
-        border-radius: 10px;
-        background: linear-gradient(90deg, #007bff, #00a2ff); /* Blue gradient */
+        border-radius: 8px;
+        background-color: #007bff; /* Solid blue, cleaner look */
         color: #fff;
         font-size: 1.1rem;
         font-weight: 700;
         cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 20px rgba(0, 162, 255, 0.4);
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.4);
     }
 
     .login-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 162, 255, 0.6);
-        background: linear-gradient(90deg, #00a2ff, #007bff);
+        transform: translateY(-2px);
+        background-color: #0056b3; /* Darker blue on hover */
+        box-shadow: 0 6px 12px rgba(0, 123, 255, 0.5);
     }
 
     /* Additional links */
@@ -185,7 +201,6 @@
     /* ----------------------------- */
     /* Responsive Design */
     /* ----------------------------- */
-
     @media (max-width: 576px) {
         .login-card {
             padding: 20px;

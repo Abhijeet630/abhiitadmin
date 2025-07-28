@@ -110,6 +110,10 @@ body::before {
     overflow: hidden;
     animation: borderGlow 3s ease-in-out infinite;
 }
+@keyframes borderGlow {
+    0%, 100% { box-shadow: 0 0 20px #00a2ff, 0 0 10px #ff00f2; }
+    50% { box-shadow: 0 0 40px #ff00f2, 0 0 20px #00a2ff; }
+}
 .login-card::after {
     content: '';
     position: absolute;

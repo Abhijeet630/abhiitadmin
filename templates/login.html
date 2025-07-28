@@ -10,6 +10,18 @@
             <p>Access your professional dashboard</p>
         </div>
 
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages mt-4">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} animate__animated animate__shakeX" role="alert">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
         <form method="POST" class="mt-4">
             <div class="form-group mb-4">
                 <div class="input-with-icon">

@@ -16,8 +16,8 @@
             </svg>
         </div>
         <div class="login-form-container">
-            <h2 class="title">Login</h2>
-            <p class="subtitle">Sign in to your account</p>
+            <h2 class="title">लॉगिन</h2>
+            <p class="subtitle">अपने अकाउंट में साइन इन करें</p>
             
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -33,17 +33,20 @@
 
             <form method="POST">
                 <div class="input-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <input type="text" id="username" name="username" placeholder="यूजरनेम" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <input type="password" id="password" name="password" placeholder="पासवर्ड" required>
                 </div>
-                <button type="submit" class="login-btn">Login</button>
+                <button type="submit" class="login-btn">लॉगिन</button>
             </form>
             <div class="link-area">
-                <a href="#" class="forgot-password">Forgot Password?</a>
+                <a href="#" class="forgot-password">पासवर्ड भूल गए?</a>
             </div>
         </div>
+    </div>
+    <div class="footer-text mt-4">
+        &copy; 2025 All rights reserved.
     </div>
 </div>
 
@@ -64,6 +67,7 @@
     .main-login-page {
         width: 100%;
         display: flex;
+        flex-direction: column; /* To stack login card and footer vertically */
         justify-content: center;
         align-items: center;
         min-height: 100vh;
@@ -202,6 +206,13 @@
         background-color: #0c3d1f;
         border-color: #28a745;
         color: #66bb6a;
+    }
+    
+    .footer-text {
+        color: #a0a0a0;
+        font-size: 0.9rem;
+        margin-top: 2rem;
+        text-align: center;
     }
 
 </style>

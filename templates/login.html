@@ -53,8 +53,8 @@
 
 <style>
 body {
-    background: #0f2027;
-    background: radial-gradient(circle at center, rgba(0, 162, 255, 0.1) 0%, #0f2027 100%);
+    background: #0b0c10;
+    background: linear-gradient(120deg, #0b0c10 0%, #1c1f2f 100%);
     color: #e0e6ed;
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
@@ -68,19 +68,18 @@ body {
 body::before {
     content: '';
     position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(0, 162, 255, 0.15), transparent 60%);
     top: -50%;
     left: -50%;
-    animation: pulse 10s linear infinite;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 162, 255, 0.1), transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
     z-index: 0;
-    opacity: 0.5;
+    opacity: 0.3;
 }
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.4; }
-    50% { transform: scale(1.2); opacity: 0.6; }
-    100% { transform: scale(1); opacity: 0.4; }
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.1); opacity: 0.6; }
 }
 .subtitle.typewriter {
     animation: none !important;

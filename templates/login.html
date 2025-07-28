@@ -1,4 +1,3 @@
-
 {% block content %}
 <div class="main-login-page">
     <div class="login-card animate__animated animate__zoomIn">
@@ -42,9 +41,9 @@
 </div>
 
 <style>
-    /* New: Stylish and animated background for a better look */
+    /* New: Professional, dark gradient background */
     body {
-        background-color: #0b0c10;
+        background: radial-gradient(circle at 10% 20%, #1a1c22 0%, #0b0c10 100%);
         color: #e0e6ed;
         font-family: 'Inter', sans-serif;
         min-height: 100vh;
@@ -53,33 +52,7 @@
         justify-content: center;
         position: relative;
         overflow: hidden;
-        padding-top: 0 !important; /* Overrides base.html padding */
-    }
-
-    /* Subtle background grid animation */
-    body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: 
-            linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-        background-size: 30px 30px;
-        z-index: 0;
-        animation: pan-background 60s linear infinite;
-        opacity: 0.5;
-    }
-
-    @keyframes pan-background {
-        from {
-            background-position: 0 0;
-        }
-        to {
-            background-position: 300% 300%;
-        }
+        padding-top: 0 !important;
     }
 
     .main-login-page {
@@ -91,19 +64,19 @@
         min-height: 100vh;
         padding: 2rem;
         position: relative;
-        z-index: 1; /* Ensures content is on top of the animated background */
+        z-index: 1;
     }
 
-    /* Glassmorphism card styling */
+    /* Transparent Glassmorphism card styling */
     .login-card {
-        background: rgba(25, 27, 33, 0.6);
+        background: rgba(25, 27, 33, 0.4); /* More transparent */
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        padding: 30px; /* Reduced padding for a more compact look */
-        max-width: 400px; /* Reduced max-width to make it smaller */
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); /* Darker, more professional shadow */
+        padding: 30px;
+        max-width: 400px;
         width: 100%;
         text-align: center;
         transition: transform 0.3s ease;
@@ -118,67 +91,59 @@
         margin-bottom: 25px;
     }
 
-    /* New CSS for the logo image */
     .logo-image {
-        width: 80px; /* Fixed width for the logo */
-        height: 80px; /* Fixed height for a square image */
-        border-radius: 50%; /* Makes the image circular */
-        object-fit: cover; /* Ensures the image covers the area without stretching */
-        filter: drop-shadow(0 0 10px rgba(0, 162, 255, 0.6)); /* Glowing effect */
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        filter: drop-shadow(0 0 10px rgba(0, 162, 255, 0.6));
     }
 
     .title {
-        font-size: 2rem; /* Slightly reduced font size */
+        font-size: 2rem;
         font-weight: 700;
         color: #fff;
         margin-bottom: 5px;
     }
 
     .subtitle {
-        font-size: 0.9rem; /* Slightly reduced font size */
+        font-size: 0.9rem;
         color: #a0a0a0;
-        margin-bottom: 25px; /* Reduced margin */
+        margin-bottom: 25px;
     }
 
     /* Input fields styling */
     .input-group {
         position: relative;
-        margin-bottom: 20px; /* Reduced margin */
+        margin-bottom: 20px;
     }
 
     .input-group input {
         width: 100%;
-        padding: 12px 20px; /* Reduced padding */
+        padding: 12px 20px;
         background-color: #1a1c22;
-        border: 1px solid transparent;
+        border: 1px solid transparent; /* Transparent border */
         border-radius: 10px;
         color: #fff;
         font-size: 1rem;
         transition: all 0.3s ease;
     }
-
-    #username {
-        box-shadow: 0 0 0 1px #4a6ee6;
-    }
-    
-    #password {
-        box-shadow: 0 0 0 1px #ff8c42;
-    }
     
     .input-group input:focus {
         outline: none;
-        box-shadow: 0 0 10px rgba(74, 110, 230, 0.8), 0 0 0 1px #4a6ee6;
+        border: 1px solid #00a2ff; /* Solid blue border on focus */
+        box-shadow: 0 0 10px rgba(0, 162, 255, 0.8);
     }
 
     /* Login button styling */
     .login-btn {
         width: 100%;
-        padding: 12px; /* Reduced padding */
+        padding: 12px;
         border: none;
         border-radius: 10px;
-        background: linear-gradient(90deg, #ff5a91, #00a2ff);
+        background: linear-gradient(90deg, #007bff, #00a2ff); /* Blue gradient */
         color: #fff;
-        font-size: 1.1rem; /* Slightly reduced font size */
+        font-size: 1.1rem;
         font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -188,7 +153,7 @@
     .login-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 25px rgba(0, 162, 255, 0.6);
-        background: linear-gradient(90deg, #00a2ff, #ff5a91);
+        background: linear-gradient(90deg, #00a2ff, #007bff);
     }
 
     /* Additional links */
@@ -210,8 +175,8 @@
     /* Footer text */
     .footer-text {
         color: #a0a0a0;
-        font-size: 0.8rem; /* Reduced font size */
-        margin-top: 1.5rem; /* Reduced margin */
+        font-size: 0.8rem;
+        margin-top: 1.5rem;
         text-align: center;
         position: relative;
         z-index: 1;
@@ -223,8 +188,8 @@
 
     @media (max-width: 576px) {
         .login-card {
-            padding: 20px; /* Smaller padding for mobile */
-            max-width: 95%; /* Take up more width on small screens */
+            padding: 20px;
+            max-width: 95%;
         }
         .title {
             font-size: 1.6rem;

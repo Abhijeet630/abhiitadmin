@@ -2,11 +2,11 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="login-card custom-shadow animate__animated animate__fadeInUp">
+<div class="container-fluid d-flex justify-content-center align-items-center login-background">
+    <div class="login-card custom-shadow animate__animated animate__zoomIn">
         <div class="card-body p-5">
-            <h2 class="card-title text-center mb-4 text-primary">
-                <i class="fas fa-sign-in-alt me-2"></i> Welcome Back
+            <h2 class="card-title text-center mb-2 text-primary font-weight-bold">
+                <i class="fas fa-sign-in-alt me-2"></i> Log In
             </h2>
             <p class="text-center text-muted mb-4">Please sign in to continue.</p>
 
@@ -34,10 +34,10 @@
                 </div>
                 
                 <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                    <button type="submit" class="btn btn-primary btn-lg custom-btn-glow">Login</button>
                 </div>
                 
-                <p class="text-center text-muted">
+                <p class="text-center text-muted mt-3">
                     Don't have an account? <a href="#" class="text-decoration-none">Sign up here</a>
                 </p>
             </form>
@@ -46,67 +46,103 @@
 </div>
 
 <style>
-    /*
-     * The primary goal is to create a clean, modern, and professional look.
-     * We'll use a subtle color palette and leverage Bootstrap's utility classes.
-     */
-
-    /* --- Page Background --- */
-    body {
-        background-color: #f4f7f9; /* A very light, clean gray */
-        font-family: 'Inter', 'Segoe UI', sans-serif; /* A modern, clean font family */
-        /* To ensure the gradient from the previous code doesn't interfere, we set a solid color.
-           If you prefer a gradient, use a very subtle one. */
+    /* Full-page stylish background */
+    .login-background {
+        background: url('https://source.unsplash.com/1600x900/?technology,abstract') no-repeat center center fixed;
+        background-size: cover;
+        min-height: 100vh;
+        position: relative;
     }
-
-    /* --- Login Card --- */
-    .login-card {
-        max-width: 400px; /* Slightly narrower for a more focused look */
+    
+    .login-background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        border-radius: 12px; /* Slightly more rounded corners */
-        background-color: #ffffff;
-        border: 1px solid #e0e6ed; /* A subtle border for definition */
+        height: 100%;
+        background-color: rgba(26, 35, 50, 0.7); /* Dark semi-transparent overlay */
+    }
+    
+    /* Styling for the login card */
+    .login-card {
+        max-width: 420px;
+        width: 100%;
+        border-radius: 15px; /* Softer, more rounded corners */
+        background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white background */
+        backdrop-filter: blur(10px); /* Glassmorphism effect */
+        border: none;
+        z-index: 10; /* Ensure the card is above the background overlay */
     }
 
     .custom-shadow {
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* A softer, more spread-out shadow */
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Deeper, more spread out shadow */
     }
 
-    /* --- Form Elements --- */
+    .card-title {
+        color: #1a2333; /* Dark bluish-black color */
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+    
+    /* Styling for input fields */
     .form-floating .form-control {
-        border-radius: 8px; /* Consistent rounded corners */
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+        background-color: rgba(255, 255, 255, 0.7);
     }
-
+    
     .form-floating label {
-        color: #aeb9c7; /* Lighter color for placeholder text */
+        color: #6c757d;
     }
 
-    .form-floating .form-control:focus {
-        border-color: #0d6efd; /* Use Bootstrap's primary color for focus state */
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
     }
     
-    /* --- Buttons --- */
+    /* Button styling */
     .btn-primary {
-        background-color: #0d6efd; /* Standard Bootstrap primary color */
-        border-color: #0d6efd;
-        border-radius: 8px;
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 10px;
         font-weight: 600;
-        transition: transform 0.2s ease-in-out;
+        transition: all 0.3s ease;
     }
-    
+
     .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
         transform: translateY(-2px);
     }
-    
-    /* --- Custom Colors --- */
-    .text-primary {
-        color: #1a2333 !important; /* A very dark gray for better readability */
+
+    .custom-btn-glow {
+        position: relative;
+        overflow: hidden;
     }
 
-    /* --- Animations --- */
-    .animate__animated.animate__fadeInUp {
-        --animate-duration: 0.8s;
+    .custom-btn-glow::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: transform 0.4s ease;
+        opacity: 0;
+    }
+
+    .custom-btn-glow:hover::after {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 1;
+    }
+    
+    /* Animation */
+    .animate__animated.animate__zoomIn {
+        --animate-duration: 0.7s;
     }
 </style>
 {% endblock %}

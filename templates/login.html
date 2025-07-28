@@ -1,6 +1,3 @@
-{% extends "base.html" %}
-{% block title %}Login{% endblock %}
-{% block footer %}{% endblock %}
 
 {% block content %}
 <div class="main-login-page">
@@ -16,11 +13,6 @@
                 </defs>
             </svg>
         </div>
-
-        <div class="image-area">
-            <img src="https://via.placeholder.com/400x200" alt="Login Image" class="login-image">
-        </div>
-        
         <div class="login-form-container">
             <h2 class="title">Login</h2>
             <p class="subtitle">Sign in to your account</p>
@@ -135,19 +127,6 @@
 
     .logo-icon {
         filter: drop-shadow(0 0 10px rgba(255, 90, 145, 0.6));
-    }
-
-    /* New CSS for the image */
-    .image-area {
-        margin-bottom: 25px; /* Spacing below the image */
-        text-align: center;
-    }
-
-    .login-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px; /* Rounded corners to match the card */
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .title {

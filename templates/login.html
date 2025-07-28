@@ -1,18 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block footer %}{% endblock %}
 
 {% block content %}
 <div class="main-login-page">
     <div class="login-card animate__animated animate__zoomIn">
         <div class="logo-area">
-            <svg class="logo-icon" width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 0L80 20V80L50 100L20 80V20L50 0Z" fill="url(#paint0_linear_1_2)"/>
-                <defs>
-                    <linearGradient id="paint0_linear_1_2" x1="50" y1="0" x2="50" y2="100" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#FF5A91"/>
-                        <stop offset="1" stop-color="#00A2FF"/>
-                    </linearGradient>
-                </defs>
-            </svg>
+            <img src="https://via.placeholder.com/100x100" alt="Your Logo" class="logo-image">
         </div>
+
         <div class="login-form-container">
             <h2 class="title">Login</h2>
             <p class="subtitle">Sign in to your account</p>
@@ -120,13 +116,18 @@
         transform: translateY(-5px);
     }
 
-    /* Logo and text */
+    /* Logo area styling */
     .logo-area {
         margin-bottom: 25px;
     }
 
-    .logo-icon {
-        filter: drop-shadow(0 0 10px rgba(255, 90, 145, 0.6));
+    /* New CSS for the logo image */
+    .logo-image {
+        width: 80px; /* Fixed width for the logo */
+        height: 80px; /* Fixed height for a square image */
+        border-radius: 50%; /* Makes the image circular */
+        object-fit: cover; /* Ensures the image covers the area without stretching */
+        filter: drop-shadow(0 0 10px rgba(0, 162, 255, 0.6)); /* Glowing effect */
     }
 
     .title {

@@ -39,17 +39,7 @@
         </form>
     </div>
 </div>
-{% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="messages mt-4">
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }} animate__animated animate__shakeX" role="alert">
-                {{ message }}
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
+
 
 <style>
     /* Main Background for IT Theme */

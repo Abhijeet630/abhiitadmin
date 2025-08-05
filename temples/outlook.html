@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System & PST Backup Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        h1, h2 { color: #0056b3; }
+        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
+        th { background-color: #f2f2f2; }
+        button { background-color: #007bff; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; margin-right: 5px;}
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        .success { color: green; }
+        .error { color: red; }
+        .warning { color: orange; }
+        pre { white-space: pre-wrap; word-wrap: break-word; font-size: 0.8em; background-color: #eee; padding: 5px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>System & PST Backup Dashboard</h1>
+
+    <div class="container">
+        <h2>Registered Systems</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hostname</th>
+                    <th>IP Address</th>
+                    <th>OS</th>
+                    <th>Username</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for system in systems %}
+                <tr>
+                    <td>{{ system.hostname }}</td>
+                    <td>{{ system.ip_address }}</td>
+                    <td>{{ system.os }} ({{ system.os_release }})</td>
+                    <td>{{ system.username }}</td>
+                    <td>{{ system.last_updated }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>Outlook Accounts</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hostname</th>
+                    <th>Account Name</th>
+                    <th>Email Address</th>
+                    <th>Account Type</th>
+                    <th>Default Store Path</th>
+                    <th>Last Scanned</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for account in outlook_accounts %}
+                <tr>
+                    <td>{{ account.hostname }}</td>
+                    <td>{{ account.account_name }}</td>
+                    <td>{{ account.email_address }}</td>
+                    <td>{{ account.account_type }}</td>
+                    <td>{{ account.default_store_path }}</td>
+                    <td>{{ account.last_scanned }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>PST/OST Files Found</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hostname</th>
+                    <th>File Name</th>
+                    <th>Path</th>
+                    <th>Size (MB)</th>
+                    <th>Type</th>
+                    <th>Linked Account Email</th> <th>Linked Account Type</th> <th>Source</th>
+                    <th>Last Scanned</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pst in pst_files %}
+                <tr>
+                    <td>{{ pst.hostname }}</td>
+                    <td>{{ pst.pst_name }}</td>
+                    <td>{{ pst.pst_path }}</td>
+                    <td>{{ pst.pst_size_mb }}</td>
+                    <td>{{ pst.pst_type }}</td>
+                    <td>{{ pst.linked_email_address if pst.linked_email_address else 'N/A' }}</td> <td>{{ pst.linked_account_type if pst.linked_account_type else 'N/A' }}</td> <td>{{ pst.source }}</td>
+                    <td>{{ pst.last_scanned }}</td>
+                    <td>
+                        {% if pst.pst_type == 'PST' %}
+                            <button onclick="triggerBackup('{{ pst.hostname }}', '{{ pst.pst_path }}')">Backup Now</button>
+                            {% if pst.linked_account_type == 'POP3' %}
+                            <button onclick="triggerBackup('{{ pst.hostname }}', '{{ pst.pst_path }}', true)">Auto Backup POP3</button>
+                            {% endif %}
+                        {% else %}
+                            <button disabled title="Only PST files can be backed up manually.">Backup OST</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>Backup History (Recent)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Hostname</th>
+                    <th>User</th>
+                    <th>File Name</th>
+                    <th>Status</th>
+                    <th>Time Taken (s)</th>
+                    <th>Backup Timestamp</th>
+                    <th>Message</th>
+                    <th>RoboCopy Output</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for backup in backup_history %}
+                <tr>
+                    <td>{{ backup.hostname }}</td>
+                    <td>{{ backup.username }}</td>
+                    <td>{{ backup.file_name }}</td>
+                    <td class="{% if backup.status == 'success' %}success{% elif backup.status == 'failed' %}error{% else %}warning{% endif %}">{{ backup.status }}</td>
+                    <td>{{ backup.time_taken_seconds }}</td>
+                    <td>{{ backup.backup_timestamp }}</td>
+                    <td>{{ backup.message }}</td>
+                    <td><pre>{{ backup.robocopy_output }}</pre></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function triggerBackup(hostname, pstPath, isAuto = false) {
+            let confirmMessage = `Are you sure you want to trigger a backup for ${pstPath} on ${hostname}?`;
+            if (isAuto) {
+                confirmMessage = `Confirm automatic POP3 backup for ${pstPath} on ${hostname}?`;
+            }
+
+            if (confirm(confirmMessage)) {
+                fetch('/trigger_backup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ hostname: hostname, pst_path: pstPath })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    // Add a slight delay to allow the client script to initiate
+                    // then reload to see if backup status updates
+                    setTimeout(() => {
+                         location.reload();
+                    }, 2000); // Reload after 2 seconds
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while trying to trigger backup.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

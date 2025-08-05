@@ -18,9 +18,9 @@ from datetime import datetime # Import datetime for timestamping
 
 # --- Configuration ---
 # *** Adjust this to your Flask server's IP and port ***
-WEB_API_URL_INFO = "http://172.16.16.108:5000/outlook/api/system_info"  # Endpoint to send system/PST info
-WEB_API_URL_BACKUP_STATUS = "http://172.16.16.108:5000/outlook/api/backup_status"  # Endpoint to send backup status
-WEB_API_URL_BACKUP_REQUEST = "http://172.16.16.108:5000/outlook/api/get_backup_request" # Endpoint to poll for backup requests
+WEB_API_URL_INFO = "http://127.0.0.1:5000/outlook/api/system_info"  # Endpoint to send system/PST info
+WEB_API_URL_BACKUP_STATUS = "http://127.0.0.1:5000/outlook/api/backup_status"  # Endpoint to send backup status
+WEB_API_URL_BACKUP_REQUEST = "http://127.0.0.1:5000/outlook/api/get_backup_request" # Endpoint to poll for backup requests
 
 # *** Adjust this to your NAS share UNC path ***
 NAS_BACKUP_PATH = r"\\172.16.17.162\data\IT ADMIN"

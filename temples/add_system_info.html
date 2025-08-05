@@ -1,0 +1,108 @@
+{% extends "base.html" %} {# This line must be the very first line #}
+{% block title %}{{ title }}{% endblock %} {# This sets the specific page title #}
+
+{% block content %} {# All the unique content for this page goes inside this block #}
+    <div class="container mt-4">
+        <h2>{{ title }}</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {# Dynamic form action: points to 'add_system_info' if 'system' object is not provided (new entry), otherwise to 'edit_system_info' (existing entry) #}
+        <form method="POST" action="{{ url_for('add_system_info') if not system else url_for('edit_system_info', id=system.id) }}">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="floor" class="form-label">Floor</label>
+                    <input type="text" class="form-control" id="floor" name="floor" value="{{ system.floor if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="department" class="form-label">Department</label>
+                    <input type="text" class="form-control" id="department" name="department" value="{{ system.department if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="host_name" class="form-label">Host Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="host_name" name="host_name" value="{{ system.host_name if system else '' }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="employee_name" class="form-label">Employee Name</label>
+                    <input type="text" class="form-control" id="employee_name" name="employee_name" value="{{ system.employee_name if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ip_address" class="form-label">IP-Address</label>
+                    <input type="text" class="form-control" id="ip_address" name="ip_address" value="{{ system.ip_address if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="operating_system" class="form-label">Operating System</label>
+                    <input type="text" class="form-control" id="operating_system" name="operating_system" value="{{ system.operating_system if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="product_model" class="form-label">Product Model</label>
+                    <input type="text" class="form-control" id="product_model" name="product_model" value="{{ system.product_model if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="pc_type" class="form-label">PC Type</label>
+                    <input type="text" class="form-control" id="pc_type" name="pc_type" value="{{ system.pc_type if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="processor" class="form-label">Processor</label>
+                    <input type="text" class="form-control" id="processor" name="processor" value="{{ system.processor if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" class="form-control" id="price" name="price" value="{{ system.price if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ram_size" class="form-label">RAM Size</label>
+                    <input type="text" class="form-control" id="ram_size" name="ram_size" value="{{ system.ram_size if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="hard_disk_type" class="form-label">Hard Disk Type</label>
+                    <input type="text" class="form-control" id="hard_disk_type" name="hard_disk_type" value="{{ system.hard_disk_type if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="hard_disk_size" class="form-label">Hard Disk Size</label>
+                    <input type="text" class="form-control" id="hard_disk_size" name="hard_disk_size" value="{{ system.hard_disk_size if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="hard_disk_sn" class="form-label">Hard Disk S/N</label>
+                    <input type="text" class="form-control" id="hard_disk_sn" name="hard_disk_sn" value="{{ system.hard_disk_sn if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ssd_disk_type" class="form-label">SSD Disk Type</label>
+                    <input type="text" class="form-control" id="ssd_disk_type" name="ssd_disk_type" value="{{ system.ssd_disk_type if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ssd_disk_size" class="form-label">SSD Disk Size</label>
+                    <input type="text" class="form-control" id="ssd_disk_size" name="ssd_disk_size" value="{{ system.ssd_disk_size if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="ssd_hard_disk_sn" class="form-label">SSD Hard Disk S/N</label>
+                    <input type="text" class="form-control" id="ssd_hard_disk_sn" name="ssd_hard_disk_sn" value="{{ system.ssd_hard_disk_sn if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="adapter_mac_address" class="form-label">Adapter MAC-Address</label>
+                    <input type="text" class="form-control" id="adapter_mac_address" name="adapter_mac_address" value="{{ system.adapter_mac_address if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="external_lancard" class="form-label">External LANCARD</label>
+                    <input type="text" class="form-control" id="external_lancard" name="external_lancard" value="{{ system.external_lancard if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="display_make_model" class="form-label">Display Make\Model</label>
+                    <input type="text" class="form-control" id="display_make_model" name="display_make_model" value="{{ system.display_make_model if system else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="display_serial_number" class="form-label">Display Serial Number</label>
+                    <input type="text" class="form-control" id="display_serial_number" name="display_serial_number" value="{{ system.display_serial_number if system else '' }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ url_for('system_info_list') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %} {# End of the content block #}

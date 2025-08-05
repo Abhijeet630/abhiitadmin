@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Patch Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Web Patch Panel Rack Management</h1>
+        <div class="controls">
+            <button id="addRackBtn">Add New Rack</button>
+            <button id="reloadDataBtn">Reload Data</button>
+            <button id="exportCsvBtn" disabled>Export as CSV</button>
+            <button id="exportExcelBtn" disabled>Export as Excel</button>
+            <button id="deleteAllBtn">Delete All Data</button>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+    </div>
+
+    <div id="cablesContainer" class="cables-container"></div>
+
+    <div id="contextMenu" class="context-menu">
+        <ul id="contextMenuList">
+            <li data-action="patch-a">Patch Port A</li>
+            <li data-action="patch-b">Patch Port B</li>
+            <li data-action="unpatch">Unpatch</li>
+            <li data-action="add-description">Add Description</li>
+            <li data-action="set-up">Set Status UP</li>
+            <li data-action="set-down">Set Status DOWN</li>
+            <li data-action="flash-port">Flash Port</li>
+        </ul>
+    </div>
+
+    <div id="descriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Add/Edit Port Description</h2>
+            <p>Port: <span id="modalPortLabel"></span></p>
+            <input type="text" id="descriptionInput" placeholder="Enter description...">
+            <button id="saveDescriptionBtn">Save Description</button>
+        </div>
+    </div>
+
+    <div id="renameRackModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Rename Rack</h2>
+            <p>Current Name: <span id="currentRackName"></span></p>
+            <input type="text" id="newRackNameInput" placeholder="Enter new rack name">
+            <button id="saveNewRackNameBtn">Save</button>
+        </div>
+    </div>
+
+    <div id="renamePanelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Rename Panel</h2>
+            <p>Rack: <span id="currentPanelRackName"></span></p>
+            <p>Current Label: <span id="currentPanelLabel"></span></p>
+            <input type="text" id="newPanelLabelInput" placeholder="Enter new panel label">
+            <button id="saveNewPanelLabelBtn">Save</button>
+        </div>
+    </div>
+
+    <div id="addRackModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Add New Rack</h2>
+            <input type="text" id="addRackNameInput" placeholder="Enter new rack name" required>
+            <button id="saveNewRackBtn">Add Rack</button>
+        </div>
+    </div>
+
+    <div id="addPanelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Add New Panel to <span id="addPanelRackName"></span></h2>
+            <input type="text" id="addPanelLabelInput" placeholder="Enter panel label (e.g., A1)" required>
+            <input type="number" id="addPanelNumPortsInput" placeholder="Number of ports (default: 24)" value="24" min="1" max="96">
+            <button id="saveNewPanelBtn">Add Panel</button>
+        </div>
+    </div>
+
+    <div id="flashPanelModal" class="modal">
+        <div class="modal-content">
+            <span class="flash-close-button">&times;</span>
+            <h2>Flash Panels on <span id="flashModalRackName"></span></h2>
+            <div id="flashPanelsContainer">
+                </div>
+        </div>
+    </div>
+    
+    <div id="messageBox" class="message-box">
+        <h3 id="messageBoxTitle"></h3>
+        <p id="messageBoxContent"></p>
+        <button id="messageBoxCloseBtn">Close</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

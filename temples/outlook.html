@@ -3,161 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System & PST Backup Dashboard</title>
+    <title>PST & System Backup Dashboard</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        h1, h2 { color: #0056b3; }
-        .container { background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
-        th { background-color: #f2f2f2; }
-        button { background-color: #007bff; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em; margin-right: 5px;}
-        button:hover { background-color: #0056b3; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
-        .success { color: green; }
-        .error { color: red; }
-        .warning { color: orange; }
-        pre { white-space: pre-wrap; word-wrap: break-word; font-size: 0.8em; background-color: #eee; padding: 5px; border-radius: 3px; }
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --bg-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #e9ecef;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .card {
+            background-color: var(--card-bg-color);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        button {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            margin: 2px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        button.disabled {
+            background-color: var(--secondary-color);
+            cursor: not-allowed;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+        }
+        .status-success { background-color: var(--success-color); }
+        .status-error { background-color: var(--danger-color); }
+        .status-warning { background-color: var(--warning-color); }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 0.8em;
+            background-color: var(--bg-color);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .no-data {
+            text-align: center;
+            color: var(--secondary-color);
+            font-style: italic;
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>System & PST Backup Dashboard</h1>
-
     <div class="container">
-        <h2>Registered Systems</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Hostname</th>
-                    <th>IP Address</th>
-                    <th>OS</th>
-                    <th>Username</th>
-                    <th>Last Updated</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for system in systems %}
-                <tr>
-                    <td>{{ system.hostname }}</td>
-                    <td>{{ system.ip_address }}</td>
-                    <td>{{ system.os }} ({{ system.os_release }})</td>
-                    <td>{{ system.username }}</td>
-                    <td>{{ system.last_updated }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <h1>PST & System Backup Dashboard</h1>
 
-    <div class="container">
-        <h2>Outlook Accounts</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Hostname</th>
-                    <th>Account Name</th>
-                    <th>Email Address</th>
-                    <th>Account Type</th>
-                    <th>Default Store Path</th>
-                    <th>Last Scanned</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for account in outlook_accounts %}
-                <tr>
-                    <td>{{ account.hostname }}</td>
-                    <td>{{ account.account_name }}</td>
-                    <td>{{ account.email_address }}</td>
-                    <td>{{ account.account_type }}</td>
-                    <td>{{ account.default_store_path }}</td>
-                    <td>{{ account.last_scanned }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        <div class="card">
+            <h2>Registered Systems</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>IP Address</th>
+                        <th>Operating System</th>
+                        <th>User</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if systems %}
+                    {% for system in systems %}
+                    <tr>
+                        <td>{{ system.hostname }}</td>
+                        <td>{{ system.ip_address }}</td>
+                        <td>{{ system.os }} ({{ system.os_release }})</td>
+                        <td>{{ system.username }}</td>
+                        <td>{{ system.last_updated }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td colspan="5" class="no-data">No system data available.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
 
-    <div class="container">
-        <h2>PST/OST Files Found</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Hostname</th>
-                    <th>File Name</th>
-                    <th>Path</th>
-                    <th>Size (MB)</th>
-                    <th>Type</th>
-                    <th>Linked Account Email</th> <th>Linked Account Type</th> <th>Source</th>
-                    <th>Last Scanned</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for pst in pst_files %}
-                <tr>
-                    <td>{{ pst.hostname }}</td>
-                    <td>{{ pst.pst_name }}</td>
-                    <td>{{ pst.pst_path }}</td>
-                    <td>{{ pst.pst_size_mb }}</td>
-                    <td>{{ pst.pst_type }}</td>
-                    <td>{{ pst.linked_email_address if pst.linked_email_address else 'N/A' }}</td> <td>{{ pst.linked_account_type if pst.linked_account_type else 'N/A' }}</td> <td>{{ pst.source }}</td>
-                    <td>{{ pst.last_scanned }}</td>
-                    <td>
-                        {% if pst.pst_type == 'PST' %}
-                            <button onclick="triggerBackup('{{ pst.hostname }}', '{{ pst.pst_path }}')">Backup Now</button>
-                            {% if pst.linked_account_type == 'POP3' %}
-                            <button onclick="triggerBackup('{{ pst.hostname }}', '{{ pst.pst_path }}', true)">Auto Backup POP3</button>
+        <div class="card">
+            <h2>Outlook Accounts Found</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>Account Name</th>
+                        <th>Email Address</th>
+                        <th>Account Type</th>
+                        <th>Default Store Path</th>
+                        <th>Last Scanned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if outlook_accounts %}
+                    {% for account in outlook_accounts %}
+                    <tr>
+                        <td>{{ account.hostname }}</td>
+                        <td>{{ account.account_name }}</td>
+                        <td>{{ account.email_address }}</td>
+                        <td>{{ account.account_type }}</td>
+                        <td>{{ account.default_store_path if account.default_store_path else 'N/A' }}</td>
+                        <td>{{ account.last_scanned }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td colspan="6" class="no-data">No Outlook account data available.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>PST/OST Files</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>File Name</th>
+                        <th>Full Path</th>
+                        <th>Size (MB)</th>
+                        <th>Type</th>
+                        <th>Linked Account</th>
+                        <th>Source</th>
+                        <th>Last Scanned</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if pst_files %}
+                    {% for pst in pst_files %}
+                    <tr>
+                        <td>{{ pst.hostname }}</td>
+                        <td>{{ pst.pst_name }}</td>
+                        <td>{{ pst.pst_path }}</td>
+                        <td>{{ "%.2f"|format(pst.pst_size_mb) }}</td>
+                        <td>{{ pst.pst_type }}</td>
+                        <td>{{ pst.linked_email_address if pst.linked_email_address else 'N/A' }} ({{ pst.linked_account_type if pst.linked_account_type else 'N/A' }})</td>
+                        <td>{{ pst.source }}</td>
+                        <td>{{ pst.last_scanned }}</td>
+                        <td>
+                            {% if pst.pst_type == 'PST' %}
+                                <button onclick="triggerBackup('{{ pst.hostname }}', '{{ pst.pst_path }}')">Backup Now</button>
+                            {% else %}
+                                <button class="disabled" disabled title="Only PST files can be backed up. OST files are server-synced caches.">Backup OST</button>
                             {% endif %}
-                        {% else %}
-                            <button disabled title="Only PST files can be backed up manually.">Backup OST</button>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td colspan="9" class="no-data">No PST/OST file data available.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
 
-    <div class="container">
-        <h2>Backup History (Recent)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Hostname</th>
-                    <th>User</th>
-                    <th>File Name</th>
-                    <th>Status</th>
-                    <th>Time Taken (s)</th>
-                    <th>Backup Timestamp</th>
-                    <th>Message</th>
-                    <th>RoboCopy Output</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for backup in backup_history %}
-                <tr>
-                    <td>{{ backup.hostname }}</td>
-                    <td>{{ backup.username }}</td>
-                    <td>{{ backup.file_name }}</td>
-                    <td class="{% if backup.status == 'success' %}success{% elif backup.status == 'failed' %}error{% else %}warning{% endif %}">{{ backup.status }}</td>
-                    <td>{{ backup.time_taken_seconds }}</td>
-                    <td>{{ backup.backup_timestamp }}</td>
-                    <td>{{ backup.message }}</td>
-                    <td><pre>{{ backup.robocopy_output }}</pre></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="card">
+            <h2>Recent Backup History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>User</th>
+                        <th>File Name</th>
+                        <th>Status</th>
+                        <th>Time Taken (s)</th>
+                        <th>Timestamp</th>
+                        <th>Message</th>
+                        <th>RoboCopy Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if backup_history %}
+                    {% for backup in backup_history %}
+                    <tr>
+                        <td>{{ backup.hostname }}</td>
+                        <td>{{ backup.username }}</td>
+                        <td>{{ backup.file_name }}</td>
+                        <td><span class="status-badge status-{{ backup.status.lower() }}">{{ backup.status }}</span></td>
+                        <td>{{ "%.2f"|format(backup.time_taken_seconds) }}</td>
+                        <td>{{ backup.backup_timestamp }}</td>
+                        <td>{{ backup.message }}</td>
+                        <td><pre>{{ backup.robocopy_output }}</pre></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr><td colspan="8" class="no-data">No backup history available.</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        function triggerBackup(hostname, pstPath, isAuto = false) {
-            let confirmMessage = `Are you sure you want to trigger a backup for ${pstPath} on ${hostname}?`;
-            if (isAuto) {
-                confirmMessage = `Confirm automatic POP3 backup for ${pstPath} on ${hostname}?`;
-            }
-
-            if (confirm(confirmMessage)) {
+        function triggerBackup(hostname, pstPath) {
+            if (confirm(`Are you sure you want to trigger a backup for this PST file on ${hostname}?`)) {
                 fetch('/trigger_backup', {
                     method: 'POST',
                     headers: {
@@ -168,15 +270,13 @@
                 .then(response => response.json())
                 .then(data => {
                     alert(data.message);
-                    // Add a slight delay to allow the client script to initiate
-                    // then reload to see if backup status updates
                     setTimeout(() => {
                          location.reload();
-                    }, 2000); // Reload after 2 seconds
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('An error occurred while trying to trigger backup.');
+                    alert('An error occurred while trying to trigger the backup. Check server logs.');
                 });
             }
         }

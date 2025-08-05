@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* CSS Variables: Define a futuristic color scheme */
+        :root {
+            --primary-bg: #1a1a2e; /* Dark, almost black background */
+            --secondary-bg: #2b2b45; /* Slightly lighter dark for headers/cards */
+            --accent-color: #00bcd4; /* Cyan/Teal for glow and highlights */
+            --text-light: #e0e0e0; /* Light text for dark background */
+            --text-muted: #a0a0a0; /* Muted text for descriptions */
+            --border-glow: rgba(0, 188, 212, 0.5); /* Semi-transparent cyan glow */
+            --card-shadow-dark: 0 8px 16px rgba(0,0,0,.3);
+            --card-hover-glow: 0 0 20px var(--accent-color); /* Stronger glow on hover */
+            --transition-speed: 0.3s ease-in-out;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            font-family: 'Arial', sans-serif; /* Fallback, consider 'Roboto Mono' or 'Orbitron' */
+            color: var(--text-light);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* --- Navbar Styling --- */
+        .navbar {
+            background-color: var(--secondary-bg);
+            box-shadow: 0 4px 8px rgba(0,0,0,.2);
+            border-bottom: 1px solid rgba(0, 188, 212, 0.2); /* Subtle accent border */
+        }
+        .navbar-brand, .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+        .nav-link:hover {
+            color: var(--accent-color) !important; /* Glow on hover */
+        }
+        .nav-link i {
+            margin-right: 8px;
+            color: var(--text-muted); /* Default icon color */
+            transition: color var(--transition-speed);
+        }
+        .nav-link:hover i {
+            color: var(--accent-color); /* Icon glows on hover */
+        }
+
+        /* --- Header Section Styling --- */
+        .app-header {
+            background-color: var(--secondary-bg);
+            padding: 10px 0; /* More padding */
+            border-bottom: 2px solid var(--border-glow); /* Stronger glow border */
+            box-shadow: 0 2px 12px rgba(0,0,0,.2);
+            margin-bottom: 40px;
+        }
+        .app-header h1 {
+            color: var(--accent-color); /* Header title uses accent color */
+            font-weight: 700; /* Bolder font */
+            font-size: 3rem; /* Larger font size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* More space */
+            text-shadow: 0 0 15px rgba(0, 188, 212, 0.8); /* Text glow */
+            letter-spacing: 1px; /* Spaced out letters */
+        }
+        .app-header h1 i {
+            font-size: 2.8rem; /* Larger header icon */
+            color: var(--accent-color);
+        }
+
+        /* --- Card Container & Card Styling --- */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px; /* Increased gap */
+            justify-content: center;
+            padding-bottom: 40px;
+        }
+
+        .card {
+            width: 340px; /* Slightly wider cards */
+            border-radius: 15px; /* More rounded corners */
+            background-color: var(--secondary-bg);
+            box-shadow: var(--card-shadow-dark);
+            transition: transform var(--transition-speed), box-shadow var(--transition-speed), border var(--transition-speed);
+            border: 1px solid rgba(0, 188, 212, 0.1); /* Subtle initial border */
+            position: relative;
+            overflow: hidden; /* Ensure glow doesn't overflow */
+        }
+        .card:hover {
+            transform: translateY(-12px) scale(1.02); /* More pronounced lift and slight scale */
+            box-shadow: var(--card-shadow-dark), var(--card-hover-glow); /* Add glow on hover */
+            border-color: var(--accent-color); /* Border glows on hover */
+        }
+        .card a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem; /* More padding inside cards */
+            min-height: 220px; /* Increased min-height */
+            text-align: center; /* Ensure text is centered */
+        }
+
+        .card-icon {
+            font-size: 5rem; /* Even larger icon size */
+            margin-bottom: 20px; /* More space below icon */
+            color: var(--accent-color); /* Icon uses accent color */
+            text-shadow: 0 0 10px rgba(0, 188, 212, 0.6); /* Icon glow */
+            transition: color var(--transition-speed), text-shadow var(--transition-speed);
+        }
+        .card:hover .card-icon {
+            color: var(--text-light); /* Icon changes color on hover */
+            text-shadow: 0 0 15px var(--text-light); /* Stronger glow on hover */
+        }
+
+        .card-title {
+            font-size: 1.8rem; /* Larger title */
+            font-weight: 700; /* Bolder title */
+            margin-bottom: 1rem;
+            color: var(--text-light); /* Title text light */
+            transition: color var(--transition-speed);
+        }
+        .card:hover .card-title {
+            color: var(--accent-color); /* Title glows on hover */
+        }
+
+        .card-text {
+            color: var(--text-muted);
+            line-height: 1.7; /* Better readability */
+            font-size: 1rem; /* Slightly larger text */
+        }
+        
+        /* Optional: Subtle arrow icon on hover */
+        .card .click-arrow {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--accent-color); /* Arrow uses accent color */
+            opacity: 0;
+            transition: opacity var(--transition-speed), transform var(--transition-speed);
+            transform: translateX(15px); /* Start slightly off to the right */
+        }
+        .card:hover .click-arrow {
+            opacity: 1;
+            transform: translateX(0); /* Slide into view */
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .app-header h1 {
+                font-size: 2.2rem;
+                gap: 10px;
+            }
+            .app-header h1 i {
+                font-size: 2rem;
+            }
+            .card {
+                width: 95%;
+                max-width: 400px;
+            }
+            .card a {
+                min-height: 200px;
+                padding: 2rem;
+            }
+            .card-icon {
+                font-size: 4.5rem;
+            }
+            .card-title {
+                font-size: 1.6rem;
+            }
+            .card .click-arrow {
+                font-size: 1.3rem;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">IT Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.role == 'admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('admin_panel') }}"><i class="fas fa-user-cog"></i> Admin Panel</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('logout') }}"><i class="fas fa-power-off"></i> Logout ({{ current_user.username }})</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="app-header text-center">
+        <div class="container">
+            <h1><i class="fas fa-brain"></i>IT Management Dashboard</h1>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="card-container">
+            <div class="card">
+                <a href="{{ url_for('inventory') }}">
+                    <i class="fas fa-server card-icon"></i> <h5 class="card-title">System Inventory</h5>
+                    <p class="card-text">Intelligent tracking and management of all network devices and systems.</p>
+                    <i class="fas fa-arrow-right click-arrow"></i>
+                </a>
+            </div>
+            
+            <div class="card">
+                <a href="{{ url_for('webpatch_index') }}">
+                    <i class="fas fa-microchip card-icon"></i> <h5 class="card-title">Network Analytics</h5>
+                    <p class="card-text">Advanced visualization and analysis of network connections and health.</p>
+                    <i class="fas fa-arrow-right click-arrow"></i>
+                </a>
+            </div>
+            
+            <div class="card">
+                <a href="{{ url_for('outlook_dashboard') }}">
+                    <i class="fas fa-database card-icon"></i> <h5 class="card-title">Data Resilience Hub</h5>
+                    <p class="card-text">Automated and secure backup solutions for critical user data.</p>
+                    <i class="fas fa-arrow-right click-arrow"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

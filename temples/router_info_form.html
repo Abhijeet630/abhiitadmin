@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>{{ title }}</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <div class="row">
+                {# Sr. No. field has been REMOVED as per request #}
+                <div class="col-md-6 mb-3">
+                    <label for="department" class="form-label">Floor</label>
+                    <input type="text" class="form-control" id="department" name="department" value="{{ router.department if router else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="router_model_name" class="form-label">device type</label>
+                    <select class="form-select" id="router_model_name" name="router_model_name">
+                        <option value="Router">Office Router</option>
+                        <option value="Switch">Ofice Switch</option>
+                    </select>
+            
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="router_name" class="form-label">Office device Model Name</label>
+                    <input type="text" class="form-control" id="router_name" name="router_name" value="{{ router.router_name if router else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="serial_no" class="form-label">Serial No.</label>
+                    <input type="text" class="form-control" id="serial_no" name="serial_no" value="{{ router.serial_no if router else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="router_connected" class="form-label">Office Device Connected</label>
+                    <input type="text" class="form-control" id="router_connected" name="router_connected" value="{{ router.router_connected if router else '' }}">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="price_list" class="form-label">Price List</label>
+                    <input type="text" class="form-control" id="price_list" name="price_list" value="{{ router.price_list if router else '' }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a href="{{ url_for('router_info_list') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

@@ -23,7 +23,7 @@ WEB_API_URL_BACKUP_STATUS = "http://127.0.0.1:5000/outlook/api/backup_status"  #
 WEB_API_URL_BACKUP_REQUEST = "http://127.0.0.1:5000/outlook/api/get_backup_request" # Endpoint to poll for backup requests
 
 # *** Adjust this to your NAS share UNC path ***
-NAS_BACKUP_PATH = r"\\172.16.17.162\data\IT ADMIN"
+NAS_BACKUP_PATH = r"\\172.16.17.162\data\FTP"
 # Example: r"\\192.168.1.100\SharedFolder\PST_Backups"
 # Make sure the user running this script has write access to the NAS path.
 
